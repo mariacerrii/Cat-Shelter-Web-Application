@@ -1,0 +1,6 @@
+home.php,form:prenotazione,datetime-local:data-visita,submit:btn-prenota-visita,text:ricerca-gatti,select:ordinamento-gatti
+signin.php,form:login,text:username,password:password,checkbox:ricordami,submit:btn_login
+registrazione.php,form:registrazione,text:nome,text:cognome,text:indirizzo,text:username,password:password,password:conferma_password,submit:btn_registrati
+nuovi_gatti.php,form:new_gatto,text:nome_gatto,textarea:descrizione_gatto,number:peso_gatto,text:colore_mantello_gatto,select:lunghezza_pelo_gatto,text:razza_gatto,text:colore_occhi_gatto,number:eta_gatto,select:sesso_gatto,date:data_arrivo_gatto,submit:btn_inserisci_gatto
+turni_volontariato.php,form:volontariato,checkbox:fasce[],submit:btn_prenota_turno
+logout.php

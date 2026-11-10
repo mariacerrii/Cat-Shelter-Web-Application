@@ -1,0 +1,121 @@
+1 - DESCRIZIONE GENERALE E SCELTE PROGETTUALI
+Il sito è dedicato alla gestione e alla presentazione dei gatti ospitati nel Gattile del Lago d'Orta e ha lo scopo di facilitare l'incontro tra la struttura e gli utenti interessati all'adozione, alle visite conoscitive e alle attività di volontariato.
+Il progetto è stato sviluppato separando le diverse responsabilità tra pagine PHP, componente React, script Vanilla JavaScript, API PHP e database. 
+Questa separazione permette di mantenere il codice più ordinato, leggibile e facilmente modificabile, evitando di concentrare in un unico file la gestione dell'interfaccia, della logica applicativa e dell'accesso ai dati.
+
+2 - ORGANIZZAZIONE DEL PROGETTO
+Per rendere più ordinato il lavoro i file sono stati suddivisi in diverse cartelle in base alla loro funzione.
+- Pagine PHP: costituiscono l'interfaccia principale del sito e permettono di integrare i contenuti HTML con le informazioni relative alla sessione dell'utente.
+- Cartella components: contiene il componente React GattiList.js, utilizzato per la visualizzazione dinamica dei gatti.
+- Cartella scripts: contiene gli script Vanilla JavaScript utilizzati per la gestione e la validazione lato client dei form.
+- Cartella api: contiene gli endpoint PHP che gestiscono le richieste asincrone provenienti da JavaScript e React e comunicano con il database.
+- Cartella assets/img: contiene le immagini presenti nel sito
+- File style.css: gestisce lo stile in modo da mantenere un aspetto coerente tra le diverse pagine del sito.
+
+3- HEADER, FOOTER E GESTIONE DELLA SESSIONE
+Le diverse pagine condividono un header (file header.php) e un footer (file footer.php) comuni. 
+Questa soluzione evita di duplicare nelle singole pagine elementi che devono essere presenti in tutto il sito e rende più semplice effettuare eventuali modifiche future alla struttura generale.
+Header: utilizza la sessione PHP per determinare lo stato dell'utente.
+        Se l'utente ha effettuato correttamente il login, nella parte superiore del sito (in alto a destra) viene mostrato il relativo username. 
+        Se invece non è presente una sessione autenticata, viene visualizzata la dicitura "Non loggato".
+        La navigazione viene inoltre adattata in base allo stato dell'utente. 
+        I visitatori non autenticati possono accedere alle pagine di Login e Registrazione, mentre agli utenti autenticati viene mostrato il collegamento per effettuare il Logout.
+        La voce relativa alla gestione e all'inserimento dei gatti viene mostrata esclusivamente agli amministratori.
+Logout: elimina le variabili memorizzate nella sessione, elimina il cookie associato alla sessione PHP e infine distrugge la sessione. Al termine dell'operazione l'utente viene reindirizzato alla home page.
+
+4 - AUTENTICAZIONE E COOKIE "RICORDAMI"
+L'autenticazione degli utenti viene gestita tramite sessioni PHP.
+Quando viene inviato il form di login, il backend ricerca nel database l'utente corrispondente allo username inserito e verifica la password.
+In caso di autenticazione corretta viene rigenerato l'identificativo della sessione e vengono memorizzati nella sessione l'identificativo dell'utente, lo username e il valore Booleano che indica se l'utente possiede privilegi di amministratore.
+Nel form di login è inoltre presente l'opzione "Ricordami per 72 ore".
+Se questa opzione viene selezionata e il login viene completato correttamente, il sistema memorizza in un cookie esclusivamente lo username utilizzato. 
+Il cookie ha una durata di 72 ore (come esplicitato nella traccia).
+Negli accessi successivi alla pagina di login effettuati dallo stesso browser, lo username può quindi essere automaticamente precompilato.
+La password non viene invece mai memorizzata nel cookie e il relativo campo rimane sempre vuoto.
+Il cookie non determina in alcun modo l'autenticazione dell'utente: anche quando lo username viene precompilato, l'accesso al sito rimane subordinato alla verifica della password e alla successiva creazione della sessione PHP.
+Se l'utente effettua il login senza selezionare l'opzione "Ricordami", un eventuale cookie precedentemente memorizzato viene eliminato.
+
+5 - REGISTRAZIONE E VALIDAZIONE DEI DATI
+La pagina di registrazione permette a un nuovo utente di creare un account specificando nome, cognome, indirizzo, username, password e conferma della password.
+Il form viene gestito lato client esclusivamente tramite Vanilla JavaScript.
+Prima dell'invio vengono verificati la compilazione di tutti i campi, il formato dello username, la complessità della password e la corrispondenza tra password e conferma password.
+L' username deve iniziare con un carattere alfabetico.
+La password deve avere una lunghezza compresa tra 8 e 16 caratteri e deve contenere almeno una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale.
+I principali controlli vengono ripetuti anche lato server. Questa scelta è necessaria perché la validazione JavaScript migliora l'esperienza dell'utente, ma può essere aggirata effettuando direttamente una richiesta all'endpoint PHP.
+Per la verifica del formato dello username e dei requisiti della password vengono utilizzate anche espressioni regolari tramite preg_match() lato server.
+Le password non vengono memorizzate direttamente in chiaro dal processo di registrazione: prima dell'inserimento viene calcolato il valore previsto dalla funzione di hashing definita nel file comune di connessione al database.
+Gli utenti creati attraverso il normale form di registrazione vengono registrati con il campo is_admin impostato a false e quindi non possiedono privilegi amministrativi.
+
+6 - VISUALIZZAZIONE DEI GATTI TRAMITE REACT (GattiList.js)
+I dati dei gatti non vengono inseriti direttamente nel componente React, ma vengono recuperati attraverso una richiesta fetch() asincrona verso l'endpoint PHP api_gatti.php.
+L'endpoint interroga il database e restituisce i dati dei gatti in formato JSON.
+Il componente utilizza:
+- useState per gestire i diversi stati necessari al proprio funzionamento, tra cui la lista dei gatti ricevuti dal server, gli identificativi dei gatti selezionati, il testo inserito nel campo di ricerca, il criterio di ordinamento, lo stato di caricamento e gli eventuali errori.
+- useEffect viene utilizzato per effettuare il recupero dei dati dall'API al caricamento del componente e quando cambia il limite di risultati richiesto.
+Sono stati previsti uno stato di caricamento e uno stato di errore in modo da fornire all'utente un feedback anche quando i dati non sono ancora disponibili oppure quando la comunicazione con il server non va a buon fine.
+
+7 - NUOVI ARRIVI
+La home page contiene una sezione dedicata ai "Nuovi Arrivi".
+Anche questa sezione utilizza il componente React GattiList.js e recupera i dati dinamicamente dal database.
+Alla stessa API utilizzata per la lista completa viene passato un parametro limit. 
+Quando viene richiesto limit=2, l'endpoint restituisce solamente due gatti, ordinati a partire dalla data di arrivo più recente.
+In questo modo la home page non contiene dati statici relativi agli ultimi arrivi, ma visualizza automaticamente gli ultimi due gatti presenti nel database.
+
+8 - RICERCA E ORDINAMENTO DEI GATTI
+Il filtraggio e l’ordinamento delle card vengono gestiti lato client dal componente React. 
+L’utente può cercare i gatti per nome o descrizione e ordinare i risultati per data di arrivo, età o colore del mantello.
+
+9 - SELEZIONE DEI GATTI
+Un visitatore non autenticato può visualizzare, cercare e ordinare i gatti, ma solo gli utenti autenticati possono selezionarli. 
+Gli ID dei gatti selezionati vengono memorizzati nello stato selectedIds di React e possono essere aggiunti o rimossi cliccando sulle card.
+
+10 - COMUNICAZIONE TRA REACT E VANILLA JAVASCRIPT
+La comunicazione tra GattiList.js e il form di prenotazione avviene tramite il CustomEvent selectedGattiChanged. 
+React invia sul document gli ID dei gatti selezionati nella proprietà detail, mentre prenotazione.js intercetta l’evento e recupera la selezione.
+Questa soluzione mantiene separati i due moduli: React gestisce le card dei gatti, mentre Vanilla JavaScript gestisce il form di prenotazione, riducendo l’accoppiamento tra le due parti.
+
+11 - COMUNICAZIONE TRA FRONTEND E BACKEND
+Frontend e backend PHP comunicano tramite fetch() asincrone e dati JSON. 
+Le operazioni di lettura utilizzano richieste GET, mentre quelle che inseriscono dati utilizzano POST.
+Gli endpoint restituiscono risposte JSON con l’esito dell’operazione e, in caso di errore, un codice e un messaggio che JavaScript può mostrare all’utente senza ricaricare la pagina.
+
+12 - PRENOTAZIONE DELLE VISITE
+Il form di prenotazione è esterno a React ed è gestito in Vanilla JavaScript. prenotazione.js riceve tramite CustomEvent i gatti selezionati e verifica che l’utente sia autenticato, abbia scelto almeno un gatto e abbia indicato una data futura.
+I dati vengono inviati in JSON a prenotazione.php, che ripete i controlli lato server e registra nel database la visita e i gatti associati. Il doppio controllo client/server garantisce sia un feedback immediato sia l’integrità dei dati.
+
+13 - GESTIONE DEI GATTI E RUOLO AMMINISTRATORE
+L'inserimento dei nuovi gatti è riservato agli amministratori tramite il controllo di is_admin nella sessione PHP, verificato sia nella pagina sia nell'endpoint di inserimento.
+Il form, gestito in Vanilla JavaScript, raccoglie tutti i dati richiesti e li valida prima dell'invio. Il backend ripete i controlli e inserisce il gatto nel database tramite prepared statement.
+
+14 - GESTIONE DELLE IMMAGINI DEI GATTI
+Ai nuovi gatti viene associata un’immagine placeholder standard, così da poter visualizzare la card anche in assenza di una fotografia reale. 
+Per alcuni gatti già presenti sono invece utilizzate immagini specifiche.
+
+15 - VOLONTARIATO
+Il form di volontariato è gestito in Vanilla JavaScript e consente agli utenti registrati di scegliere un numero illimitato di fasce. 
+Tramite conteggio_turni.php, JavaScript verifica le disponibilità e disabilita le fasce che hanno già raggiunto il limite di due volontari.
+Il controllo viene ripetuto da prenota_turno.php: se la fascia è completa, il server blocca l’inserimento e restituisce l’errore FASCIA_COMPLETA, che JavaScript mostra all’utente. 
+Il doppio controllo client/server garantisce sia un feedback immediato sia l’integrità dei dati.
+
+16 - SEPARAZIONE DEI PRIVILEGI DEL DATABASE
+Per rispettare il principio del least privilege vengono utilizzati tre utenti MySQL: 
+- lecture: per le sole letture
+- modifier: per le operazioni di lettura e scrittura 
+- registrator: esclusivamente per l’inserimento di nuovi utenti
+Ogni endpoint utilizza quindi solo i privilegi necessari alla propria funzione e l’account amministratore del database non viene mai utilizzato.
+
+17 - SICUREZZA E BUONE PRATICHE
+Le query con dati provenienti dall’utente utilizzano prepared statement e bind_param() per ridurre il rischio di SQL Injection.
+I dati vengono validati sia lato client sia lato server e viene utilizzato htmlspecialchars() per i contenuti inseriti nell’HTML.
+L’autenticazione utilizza sessioni PHP con rigenerazione dell’ID dopo il login. Il cookie “Ricordami” contiene solo lo username e mai la password. Le password registrate vengono elaborate tramite calcola_hash_password() prima del salvataggio nel database.
+
+18 - ACCESSIBILITÀ
+Sono state adottate alcune misure di accessibilità: immagini con testo alternativo, label associate ai campi dei form e messaggi con role="alert" o role="status".
+Le card selezionabili possono inoltre essere utilizzate tramite mouse o tastiera con Enter e Spazio e utilizzano role, tabIndex e aria-pressed.
+
+19 - CONCLUSIONI E MOTIVAZIONE DELLE SCELTE
+Il progetto segue il principio della separazione delle responsabilità: React gestisce visualizzazione e selezione dei gatti, Vanilla JavaScript i form, PHP autenticazione e operazioni server e MySQL la persistenza dei dati.
+React e Vanilla JavaScript comunicano tramite CustomEvent, mentre frontend e backend utilizzano fetch() e JSON. 
+La separazione dei privilegi DB, i prepared statement e la doppia validazione client/server rendono il progetto modulare, manutenibile e coerente con i requisiti della traccia.
+
+

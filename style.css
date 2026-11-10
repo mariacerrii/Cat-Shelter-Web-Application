@@ -1,0 +1,852 @@
+/* ==================================================
+   IMPOSTAZIONI GENERALI DEL SITO
+   ================================================== */
+
+/* Fa sì che padding e bordi siano compresi
+   nelle dimensioni degli elementi */
+* {
+    box-sizing: border-box;
+}
+
+/* Aspetto generale di tutte le pagine */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+
+    /* Azzurro molto chiaro ispirato al lago */
+    background-color: #eef6fa;
+
+    color: #18324a;
+    line-height: 1.6;
+}
+
+/* Contenitore principale delle pagine */
+main {
+    width: 90%;
+    max-width: 1200px;
+
+    /* Centra il contenuto */
+    margin: 30px auto;
+}
+
+/* Colore comune dei titoli */
+h1,
+h2,
+h3 {
+    color: #163b5c;
+}
+
+h1 {
+    font-size: 2.3rem;
+}
+
+h2 {
+    font-size: 1.7rem;
+}
+
+/* Aspetto generale dei link */
+a {
+    color: #2878ad;
+    text-decoration: none;
+}
+
+/* Quando il mouse passa sopra un link */
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* ==================================================
+   HEADER
+   Parte superiore con il nome/logo del gattile
+   ================================================== */
+
+header {
+    background-color: #6596b7;
+    color: white;
+
+    padding: 22px 6%;
+}
+
+/* Titolo dentro l'header */
+header h1 {
+    margin: 0;
+
+    color: white;
+    font-size: 2rem;
+}
+
+/* Logo del gattile mostrato nell'header */
+.logo-link {
+    display: inline-block;
+}
+
+.logo-gattile {
+    display: block;
+    width: 260px;
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* ==================================================
+   MENU DI NAVIGAZIONE
+   ================================================== */
+
+.nav_container {
+    background-color: #477b9f;
+
+    min-height: 55px;
+    padding: 0 6%;
+
+    /* Flex permette di mettere menu e username
+       sulla stessa riga */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    /* Piccola ombra sotto il menu */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* Contenitore dei link del menu */
+.nav_links {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+}
+
+/* Singoli link della navbar */
+.nav_links a {
+    color: white;
+
+    font-weight: bold;
+
+    padding: 16px 13px;
+
+    text-decoration: none;
+}
+
+/* Cambia leggermente colore passando sopra un link */
+.nav_links a:hover {
+    background-color: #376b8e;
+
+    text-decoration: none;
+}
+
+/* Username / "Non loggato" a destra */
+.nav_user {
+    color: white;
+    font-size: 0.95rem;
+}
+
+.nav_user strong {
+    color: white;
+}
+
+
+/* ==================================================
+   SEZIONI DELLE PAGINE
+   Crea i riquadri bianchi arrotondati
+   ================================================== */
+
+section {
+    background-color: rgba(255, 255, 255, 0.95);
+
+    margin: 25px 0;
+    padding: 30px;
+
+    /* Bordo azzurro leggero */
+    border: 1px solid #c9deeb;
+
+    /* Angoli arrotondati */
+    border-radius: 14px;
+
+    /* Ombra molto leggera */
+    box-shadow: 0 3px 12px rgba(32, 83, 116, 0.08);
+}
+
+/* Evita spazio inutile sopra i titoli delle sezioni */
+section h1,
+section h2 {
+    margin-top: 0;
+}
+
+
+/* ==================================================
+   SEZIONE PRINCIPALE DELLA HOME
+   ================================================== */
+
+/* La hero contiene testo e immagine principale affiancati */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 40px;
+
+    padding: 45px;
+
+    background-color: #f8fcfe;
+
+    overflow: hidden;
+}
+
+/* Parte testuale della presentazione */
+.hero-testo {
+    flex: 1;
+
+    text-align: left;
+}
+
+/* Titolo principale della home */
+.hero h1 {
+    margin-top: 5px;
+    margin-bottom: 15px;
+
+    font-size: 2.8rem;
+
+    color: #163b5c;
+}
+
+/* Testi descrittivi della hero */
+.hero-testo p {
+    max-width: 620px;
+
+    margin-bottom: 16px;
+
+    font-size: 1.08rem;
+
+    color: #496579;
+}
+
+/* Piccola scritta sopra il titolo */
+.hero .sottotitolo {
+    margin-bottom: 0;
+
+    color: #5590b8;
+
+    font-weight: bold;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+}
+
+/* Contenitore dei pulsanti della hero */
+.hero-pulsanti {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+/* Secondo pulsante della hero */
+.btn-secondario {
+    background-color: #7aabc8;
+}
+
+.btn-secondario:hover {
+    background-color: #6095b6;
+}
+
+/* Contenitore dell'immagine principale */
+.hero-immagine {
+    flex: 1;
+
+    max-width: 520px;
+}
+
+/* Foto principale del gattile */
+.hero-immagine img {
+    display: block;
+
+    width: 100%;
+    height: 360px;
+
+    /* Ritaglia la foto senza deformarla */
+    object-fit: cover;
+
+    border-radius: 16px;
+
+    box-shadow: 0 7px 22px rgba(31, 76, 107, 0.18);
+}
+
+
+/* ==================================================
+   PULSANTI
+   ================================================== */
+
+button,
+.btn {
+    display: inline-block;
+
+    background-color: #4f91bd;
+
+    color: white;
+
+    border: none;
+    border-radius: 7px;
+
+    padding: 11px 20px;
+
+    margin: 5px;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    text-decoration: none;
+}
+
+/* Pulsante più scuro quando ci passi sopra */
+button:hover,
+.btn:hover {
+    background-color: #3479a8;
+
+    text-decoration: none;
+}
+
+/* Mantiene il colore specifico del secondo pulsante */
+.btn-secondario {
+    background-color: #7aabc8;
+}
+
+.btn-secondario:hover {
+    background-color: #6095b6;
+}
+
+/* Piccolo effetto quando viene cliccato */
+button:active {
+    transform: scale(0.98);
+}
+
+/* Aspetto di un pulsante non utilizzabile */
+button:disabled {
+    background-color: #b9c9d3;
+
+    cursor: not-allowed;
+}
+
+
+/* ==================================================
+   FORM
+   Login, registrazione, nuovo gatto ecc.
+   ================================================== */
+
+form {
+    max-width: 650px;
+
+    /* Centra il form */
+    margin: 20px auto;
+}
+
+/* Etichette dei campi */
+label {
+    display: block;
+
+    margin-top: 15px;
+    margin-bottom: 5px;
+
+    font-weight: bold;
+
+    color: #244d6b;
+}
+
+/* Campi di testo, textarea e menu a tendina */
+input,
+textarea,
+select {
+    width: 100%;
+
+    padding: 11px;
+
+    border: 1px solid #aac8da;
+    border-radius: 6px;
+
+    background-color: white;
+
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+/* Altezza iniziale dei campi di testo lunghi */
+textarea {
+    min-height: 110px;
+
+    /* Permette di allungare il campo solo verticalmente */
+    resize: vertical;
+}
+
+/* Evidenzia il campo che l'utente sta compilando */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid #75acd0;
+
+    border-color: #4f91bd;
+}
+
+/* Checkbox e radio non devono occupare
+   tutta la larghezza come gli altri input */
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto;
+
+    margin-right: 8px;
+}
+
+
+/* ==================================================
+   MESSAGGI DI ERRORE, SUCCESSO E AVVISO
+   ================================================== */
+
+/* Messaggi di errore */
+.errore {
+    color: #a52a2a;
+
+    background-color: #fff0f0;
+
+    border: 1px solid #e5baba;
+    border-radius: 6px;
+
+    padding: 10px;
+}
+
+/* Operazione completata correttamente */
+.successo {
+    color: #276742;
+
+    background-color: #edf8f1;
+
+    border: 1px solid #b9ddc6;
+    border-radius: 6px;
+
+    padding: 10px;
+}
+
+/* Messaggi informativi */
+.avviso {
+    color: #775d16;
+
+    background-color: #fff9e7;
+
+    border: 1px solid #ead99e;
+    border-radius: 6px;
+
+    padding: 10px;
+}
+
+/* Se il messaggio è vuoto il riquadro non viene mostrato */
+.errore:empty,
+.successo:empty,
+.avviso:empty,
+#messaggio_volontariato:empty {
+    display: none;
+}
+
+
+/* ==================================================
+   ELENCO DEI GATTI
+   ================================================== */
+
+/* Dispone automaticamente le card dei gatti
+   su più colonne */
+.lista-gatti,
+.gatti-container,
+.gatti-grid,
+.griglia-gatti {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(210px, 1fr));
+
+    gap: 20px;
+
+    margin-top: 25px;
+}
+
+
+/* Singola card di un gatto */
+.gatto,
+.gatto-card,
+.card-gatto {
+    background-color: white;
+
+    border: 2px solid transparent;
+    border-radius: 12px;
+
+    padding: 15px;
+
+    text-align: center;
+
+    box-shadow: 0 3px 10px rgba(20, 65, 95, 0.12);
+}
+
+/* La card si solleva leggermente al passaggio del mouse */
+.gatto:hover,
+.gatto-card:hover,
+.card-gatto:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 7px 18px rgba(20, 65, 95, 0.18);
+}
+
+
+/* ==================================================
+   GATTO SELEZIONATO
+   ================================================== */
+
+/* Quando React assegna la classe selected
+   evidenziamo il gatto scelto */
+.selected,
+.selezionato {
+    border-color: #3f8abd;
+
+    background-color: #edf7fc;
+}
+
+
+/* ==================================================
+   FOTO DEI GATTI
+   ================================================== */
+
+.gatto img,
+.gatto-card img,
+.card-gatto img {
+    width: 100%;
+
+    /* Tutte le foto avranno la stessa altezza */
+    height: 220px;
+
+    /* Ritaglia la foto senza deformarla */
+    object-fit: cover;
+
+    border-radius: 9px;
+
+    margin-bottom: 10px;
+}
+
+
+/* ==================================================
+   NOME DEL GATTO
+   ================================================== */
+
+.gatto h3,
+.gatto-card h3,
+.card-gatto h3 {
+    margin: 8px 0 4px;
+
+    color: #174b70;
+}
+
+
+/* ==================================================
+   RICERCA E ORDINAMENTO DEI GATTI
+   ================================================== */
+
+.ricerca-gatti,
+.filtri-gatti,
+.controlli-gatti {
+    display: flex;
+
+    /* Se lo spazio finisce gli elementi
+       vanno automaticamente sulla riga successiva */
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+    align-items: center;
+
+    margin: 20px 0;
+}
+
+/* Campo di ricerca */
+.ricerca-gatti input,
+.filtri-gatti input,
+.controlli-gatti input {
+    flex: 1;
+
+    min-width: 200px;
+}
+
+/* Menu per l'ordinamento */
+.ricerca-gatti select,
+.filtri-gatti select,
+.controlli-gatti select {
+    width: auto;
+
+    min-width: 170px;
+}
+
+
+/* ==================================================
+   VOLONTARIATO
+   ================================================== */
+
+/* Contenitore delle fasce orarie */
+#sezione-volontariato fieldset {
+    border: 1px solid #b8d3e3;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    background-color: #f7fbfd;
+}
+
+/* Titolo "Fasce disponibili" */
+#sezione-volontariato legend {
+    color: #245d84;
+
+    font-weight: bold;
+
+    padding: 0 8px;
+}
+
+/* Ogni fascia viene mostrata come un piccolo riquadro */
+#sezione-volontariato fieldset label {
+    background-color: white;
+
+    border: 1px solid #cbdfea;
+    border-radius: 7px;
+
+    padding: 12px;
+
+    margin: 10px 0;
+
+    cursor: pointer;
+}
+
+/* Effetto al passaggio del mouse */
+#sezione-volontariato fieldset label:hover {
+    background-color: #edf7fc;
+}
+
+/* Checkbox di una fascia completa */
+#sezione-volontariato input:disabled {
+    cursor: not-allowed;
+}
+
+/* Se la fascia ha già due volontari,
+   viene mostrata in grigio */
+#sezione-volontariato label:has(input:disabled) {
+    background-color: #eeeeee;
+
+    color: #888888;
+
+    opacity: 0.7;
+
+    cursor: not-allowed;
+}
+
+
+/* ==================================================
+   TABELLE
+   ================================================== */
+
+table {
+    width: 100%;
+
+    /* Unisce i bordi delle celle */
+    border-collapse: collapse;
+
+    margin: 20px 0;
+
+    background-color: white;
+}
+
+th,
+td {
+    padding: 12px;
+
+    border: 1px solid #cbdde8;
+
+    text-align: left;
+}
+
+/* Intestazione della tabella */
+th {
+    background-color: #5f91b3;
+
+    color: white;
+}
+
+/* Alterna leggermente il colore delle righe */
+tr:nth-child(even) {
+    background-color: #f2f8fb;
+}
+
+
+/* ==================================================
+   FOOTER
+   ================================================== */
+
+footer {
+    margin-top: 45px;
+
+    background-color: #477b9f;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 25px 20px;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+
+/* ==================================================
+   RESPONSIVE
+   Modifica la disposizione quando il sito
+   viene aperto da telefono/tablet
+   ================================================== */
+
+@media (max-width: 768px) {
+
+    main {
+        width: 94%;
+
+        margin-top: 20px;
+    }
+
+    /* Centra l'header sui dispositivi piccoli */
+    header {
+        text-align: center;
+    }
+
+    /* Riduce leggermente il logo sugli schermi piccoli */
+    .logo-gattile {
+        width: 220px;
+
+        margin: 0 auto;
+    }
+
+    /* Il menu passa da orizzontale a verticale */
+    .nav_container {
+        flex-direction: column;
+
+        padding: 10px;
+    }
+
+    .nav_links {
+        justify-content: center;
+
+        flex-wrap: wrap;
+    }
+
+    .nav_links a {
+        padding: 9px 10px;
+    }
+
+    .nav_user {
+        margin: 8px 0;
+    }
+
+    section {
+        padding: 20px;
+    }
+
+    /* Su telefono testo e foto vengono mostrati
+       uno sotto l'altro */
+    .hero {
+        flex-direction: column;
+
+        padding: 30px 20px;
+
+        text-align: center;
+    }
+
+    .hero-testo {
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero-pulsanti {
+        justify-content: center;
+    }
+
+    .hero-immagine {
+        width: 100%;
+
+        max-width: none;
+    }
+
+    .hero-immagine img {
+        height: 260px;
+    }
+
+    /* Le card diventano più piccole
+       per adattarsi allo schermo */
+    .lista-gatti,
+    .gatti-container,
+    .gatti-grid,
+    .griglia-gatti {
+        grid-template-columns:
+            repeat(auto-fit, minmax(160px, 1fr));
+    }
+
+    .gatto img,
+    .gatto-card img,
+    .card-gatto img {
+        height: 180px;
+    }
+}
+
+
+/* ==================================================
+   VERSIONE PER LA STAMPA
+   Elimina elementi inutili quando la pagina
+   viene stampata
+   ================================================== */
+
+@media print {
+
+    body {
+        background: white;
+
+        color: black;
+    }
+
+    /* Menu e pulsanti non servono sulla carta */
+    nav,
+    button,
+    .btn {
+        display: none;
+    }
+
+    main {
+        width: 100%;
+
+        max-width: none;
+    }
+
+    section {
+        border: 1px solid #999;
+
+        box-shadow: none;
+
+        /* Evita che una sezione venga spezzata
+           tra due pagine se possibile */
+        page-break-inside: avoid;
+    }
+
+    footer {
+        background: white;
+
+        color: black;
+
+        border-top: 1px solid #999;
+    }
+}
